@@ -1,0 +1,42 @@
+name: "🧪 Synthetic Test - Contact Form"
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # "At 09:00 every Monday." - https://crontab.guru/
+  workflow_dispatch:
+
+jobs:
+  contact-form-bot:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./form-checker
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm i
+      - run: npm start
+
+  log-incident:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    needs: contact-form-bot
+    if: failure()
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log Incident
+        run: |
+          INCIDENT_DESCRIPTION="Unable to submit Contact Form. Temporary HeroTofu outage."
+          echo "$(date '+%Y/%m/%d %H:%M') - $INCIDENT_DESCRIPTION" >> incidents.txt
+      - name: Set up Git
+        run: |
+          git config user.name "SpencerBot"
+          git config user.email "bot@spencerlepine.com"  # Use a dummy email
+      - name: Commit and push changes
+        run: |
+          git add incidents.txt # Change this to the path of your updated file
+          git commit -m "[automated] log contact form outage"
+          git push origin main 

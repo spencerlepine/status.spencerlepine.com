@@ -1,0 +1,4 @@
+http,  200,  Portfolio Site, https://spencerlepine.com
+http,  200,  Blog Site,      https://blog.spencerlepine.com
+http,  200,  Status Page,    https://status.spencerlepine.com
+http,  404,  HeroTofu (3rd party),       https://public.herotofu.com/v1

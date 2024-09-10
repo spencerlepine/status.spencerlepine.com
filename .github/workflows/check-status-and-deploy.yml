@@ -1,0 +1,49 @@
+name: "📊 Generate Status Report"
+
+on:
+  # Run every 12 hours
+  schedule:
+    - cron: "0 */12 * * *" # tool: https://crontab.guru
+  # Alternatively, we can manually trigger this
+  workflow_dispatch:
+
+jobs:
+  status-check:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run status checks
+        run: ./generate-status-page > index.html
+
+      - name: Set up Git
+        run: |
+          git config user.name "SpencerBot"
+          git config user.email "bot@spencerlepine.com"  # Use a dummy email
+      - name: Commit and push changes
+        run: |
+          git add index.html # Change this to the path of your updated file
+          git commit -m "[automated] add latest index.html status report"
+          git push origin main 
+
+  deploy:
+    if: always()
+    needs: [status-check]
+    permissions: write-all
+    environment:
+      name: github-pages
+      url: https://status.spencerlepine.com
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
