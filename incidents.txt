@@ -1,1 +1,2 @@
 2024/03/28 09:00 - Unable to submit Contact Form. Temporary HeroTofu outage.
+2024/09/13 21:00 - Full outage. Route53 migration to GitHub Pages (from Netlify)
