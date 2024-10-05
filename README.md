@@ -18,12 +18,12 @@ GitHub Actions workflows handle site monitoring, and the status page is hosted o
 
 ## Related
 
-- repository: [spencerlepine/spencerlepine.com](https://github.com/spencerlepine/spencerlepine.com)
-- repository: [spencerlepine/blog.spencerlepine.com](https://github.com/spencerlepine/blog.spencerlepine.com)
+- repository: [spencerlepine/portfolio](https://github.com/spencerlepine/portfolio)
+- repository: [spencerlepine/blog](https://github.com/spencerlepine/blog)
 - repository: [spencerlepine/status.spencerlepine.com](https://github.com/spencerlepine/status.spencerlepine.com)
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
+[MIT](./LICENSE)
 
-Includes code from [Tinystatus](https://github.com/username/tinystatus), licensed under the MIT License.
+Includes code from [Tinystatus](https://github.com/username/tinystatus), under the MIT License.
